@@ -1,11 +1,12 @@
 package SpringBoot.app.productos.controllers;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-// import org.springframework.core.env.Environment;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import SpringBoot.app.productos.models.entity.Producto;
 public class ProductoController {
 	
 	// @Autowired
-	// private Environment env;
+	private Environment env;
 	
 	@Value("${server.port}")
 	private Integer port; 
@@ -39,10 +40,19 @@ public class ProductoController {
     }
 
     @GetMapping("/listar/{id}")
-    public Producto detalle(@PathVariable Long id) {
+    public Producto detalle(@PathVariable Long id) throws InterruptedException {
+        
+        if(id.equals(10L)) {
+            throw new IllegalStateException("Producto no encontrado"); 
+        }
+        
+        if(id.equals(7L)) { 
+            TimeUnit.SECONDS.sleep(5L);
+        }
+            
     	Producto producto = this.productoService.findById(id); 
-    	//producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
-    	producto.setPort(port);
+    	producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+    	//producto.setPort(port);
         return producto;
     }
 }

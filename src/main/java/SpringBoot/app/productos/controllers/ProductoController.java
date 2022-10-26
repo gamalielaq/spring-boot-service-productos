@@ -19,7 +19,7 @@ import SpringBoot.app.productos.models.entity.Producto;
 @RequestMapping("/api")
 public class ProductoController {
 	
-	// @Autowired
+	@Autowired
 	private Environment env;
 	
 	@Value("${server.port}")

@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.app.commons.entity.Producto;
+
 import SpringBoot.app.productos.models.service.IProductoService;
-import SpringBoot.app.productos.models.entity.Producto;
 
 @RestController
 @RequestMapping("/api")
